@@ -1,3 +1,4 @@
 <template>
-	<h1>The portfolio component</h1>
+	<h1>Hello portfolio</h1>
 </template>
+<script></script>
