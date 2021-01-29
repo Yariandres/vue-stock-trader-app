@@ -1,12 +1,12 @@
 <template>
 	<div class="col-sm-6 col-md-4">
-		<div class="panel panel-success">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title">
 					{{ stock.name }}
 					<small
-						>(price: {{ stock.price }} / Quantity:
-						{{ stock.quatity }})</small
+						>(Price: {{ stock.price }} | Quantity:
+						{{ stock.quantity }})</small
 					>
 				</h3>
 			</div>
@@ -17,6 +17,7 @@
 						class="form-control"
 						placeholder="Quantity"
 						v-model="quantity"
+						:class="{ danger: insufficientQuantity }"
 					/>
 				</div>
 				<div class="pull-right">
@@ -24,36 +25,52 @@
 						class="btn btn-success"
 						@click="sellStock"
 						:disabled="
-							quantity <= 0 || !Number.isInteger(+quantity)
+							insufficientQuantity ||
+							quantity <= 0 ||
+							!Number.isInteger(quantity)
 						"
 					>
-						Sell
+						{{ insufficientQuantity ? 'Not enough' : 'Sell' }}
 					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
+
+<style scoped>
+	.danger {
+		border: 1px solid red;
+	}
+</style>
+
 <script>
 	import { mapActions } from 'vuex';
+
 	export default {
 		props: ['stock'],
-
 		data() {
 			return {
 				quantity: 0,
 			};
 		},
+		computed: {
+			insufficientQuantity() {
+				return this.quantity > this.stock.quantity;
+			},
+		},
 		methods: {
-			...mapActions(['sellStock']),
-
+			...mapActions({
+				placeSellOrder: 'sellStock',
+			}),
 			sellStock() {
 				const order = {
 					stockId: this.stock.id,
 					stockPrice: this.stock.price,
 					quantity: this.quantity,
 				};
-				this.sellStock();
+				this.placeSellOrder(order);
+				this.quantity = 0;
 			},
 		},
 	};
