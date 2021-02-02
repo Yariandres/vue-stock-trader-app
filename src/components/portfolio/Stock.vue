@@ -27,7 +27,7 @@
 						:disabled="
 							insufficientQuantity ||
 							quantity <= 0 ||
-							!Number.isInteger(quantity)
+							!Number.isInteger(+quantity)
 						"
 					>
 						{{ insufficientQuantity ? 'Not enough' : 'Sell' }}
