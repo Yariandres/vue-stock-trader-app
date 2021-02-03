@@ -38,12 +38,6 @@
 	</div>
 </template>
 
-<style scoped>
-	.danger {
-		border: 1px solid red;
-	}
-</style>
-
 <script>
 	import { mapActions } from 'vuex';
 
@@ -75,3 +69,9 @@
 		},
 	};
 </script>
+
+<style scoped>
+	.danger {
+		border: 1px solid red;
+	}
+</style>
