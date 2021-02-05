@@ -67,11 +67,9 @@
 				randomizeStocks: 'randomizeStocks',
 				fetchData: 'loadData',
 			}),
-
 			endDay() {
 				this.randomizeStocks();
 			},
-
 			saveData() {
 				const data = {
 					funds: this.$store.getters.funds,

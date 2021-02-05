@@ -7,6 +7,7 @@
 		></app-stock>
 	</div>
 </template>
+
 <script>
 	import Stock from './Stock.vue';
 
